@@ -5,10 +5,11 @@ require('dotenv').config()
 const PORT = process.env.PORT || 3001 ;
 
 // app routers
-const helloRouter = require("./routes/hello") ;
+const signupRouter = require("./routes/signup-route") ;
 
-app.use("/",helloRouter);
+app.use("/signup",express.urlencoded(),signupRouter);
 
+// Start Server
 app.listen(PORT,()=>{
     console.log(`Listening on PORT : ${PORT}`) ;
 })
