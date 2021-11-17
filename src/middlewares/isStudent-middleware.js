@@ -8,3 +8,6 @@ const isStudent = (req, res, next) => {
         })
     }
 };
+
+
+module.exports = isStudent ;

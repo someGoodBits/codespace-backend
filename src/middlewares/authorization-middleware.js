@@ -1,4 +1,4 @@
-import { auth } from "../services/firebase-service";
+const { auth }  = require("../services/firebase-service");
 
 const getAuthToken = (req, res, next) => {
     if (req.headers.token && req.headers.token.split(" ")[0] === "Bearer") {
@@ -19,7 +19,7 @@ const isAuthenticated = (req, res, next) => {
         } catch (e) {
             return res.status(401).send({ 
                 status : "failure",
-                error: "Unauthorized" 
+                error: e.message 
             });
         }
     });

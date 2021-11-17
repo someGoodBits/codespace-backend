@@ -8,3 +8,5 @@ const isTeacher = (req, res, next) => {
         })
     }
 };
+
+module.exports = isTeacher ;
