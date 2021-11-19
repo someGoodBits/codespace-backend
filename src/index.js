@@ -1,20 +1,16 @@
 const express = require("express") ;
 const app = express();
-require('dotenv').config()
 const cors = require('cors')
-const isAuthenticated = require("./middlewares/authorization-middleware.js");
 
-
-
-
+require('dotenv').config()
 const PORT = process.env.PORT || 3001 ;
 app.use(cors());
 
 // app routers
-const signupRouter = require("./routes/signup-route");
-const classroomRouter = require("./routes/classroom-route.js");
+const signupRouter = require("./routes/signup/signup-router");
+const classroomRouter = require("./routes/classroom/classroom-router.js");
 
-app.use("/signup",express.urlencoded(),signupRouter);
+app.use("/signup",signupRouter);
 app.use("/classroom",classroomRouter);
 
 // Start Server
