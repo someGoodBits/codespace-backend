@@ -9,7 +9,7 @@ const getAuthToken = (req, res, next) => {
     next();
 };
 
-const isAuthenticated = (req, res, next) => {
+const checkIfAuthenticated = (req, res, next) => {
     getAuthToken(req, res, async () => {
         try {
             const { authToken } = req;
@@ -25,4 +25,4 @@ const isAuthenticated = (req, res, next) => {
     });
 };
 
-module.exports = isAuthenticated ;
+module.exports = checkIfAuthenticated ;

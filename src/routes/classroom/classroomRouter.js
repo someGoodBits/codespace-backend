@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-// middlewares
-const isAuthenticated = require("../../middlewares/authorization-middleware.js");
-const isTeacher = require("../../middlewares/isTeacher-middleware.js");
-const isStudent = require("../../middlewares/isStudent-middleware.js");
+// Middlewares
+const checkIfAuthenticated = require("../../middlewares/checkIfAuthenticated.js");
 const checkIfClassroomExists = require("../../middlewares/checkIfClassroomExists.js");
 const checkIfTeacherOwnsClassroom = require("../../middlewares/checkIfTeacherOwnsClassroom.js");
+const checkIfUserIsTeacher = require("../../middlewares/checkIfUserIsTeacher.js");
+const checkIfUserIsStudent = require("../../middlewares/checkIfUserIsStudent.js");
 
-// handler functions
+// Handler Functions
 const createClassroom = require("./createClassroom");
 const updateClassroomDetails = require("./updateClassroomDetails");
 const createJoinRequest = require("./createJoinRequest");
@@ -17,14 +17,15 @@ const acceptJoinRequest = require("./acceptJoinRequest");
 const getClassroomByID = require("./getClassroomByID");
 const getAllClassrooms = require("./getClassrooms");
 
-// todo validation using external LIB
+
+// TODO validation using external LIB
 
 // router global middleware
 router.use(express.urlencoded({ extended: true }));
-router.use(isAuthenticated);
+router.use(checkIfAuthenticated);
 
 // route to create classroom
-router.post("/",isTeacher,createClassroom);
+router.post("/",checkIfUserIsTeacher,createClassroom);
 
 // route to get all classroom
 router.get("/", getAllClassrooms);
@@ -32,7 +33,7 @@ router.get("/", getAllClassrooms);
 // route to update classroom details
 router.patch(
     "/", 
-    isTeacher,
+    checkIfUserIsTeacher,
     checkIfClassroomExists, 
     checkIfTeacherOwnsClassroom, 
     updateClassroomDetails
@@ -41,7 +42,7 @@ router.patch(
 // route to create join requests
 router.post(
     "/join", 
-    isStudent, 
+    checkIfUserIsStudent, 
     checkIfClassroomExists, 
     createJoinRequest
 );
@@ -49,7 +50,7 @@ router.post(
 // route to reject join request
 router.post(
     "/student/reject", 
-    isTeacher, 
+    checkIfUserIsTeacher, 
     checkIfClassroomExists, 
     checkIfTeacherOwnsClassroom, 
     rejectJoinRequest
@@ -58,7 +59,7 @@ router.post(
 // route to accept join request
 router.post(
     "/student/accept", 
-    isTeacher, 
+    checkIfUserIsTeacher, 
     checkIfClassroomExists, 
     checkIfTeacherOwnsClassroom, 
     acceptJoinRequest

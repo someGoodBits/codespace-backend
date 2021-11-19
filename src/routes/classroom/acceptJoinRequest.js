@@ -20,20 +20,14 @@ function acceptJoinRequest(req,res){
         return;
     }
 
-    firestore
-    .collection('classroom')
-    .doc(classroomID).collection('joinRequests')
-    .doc(studentID).get().then((joinReqDoc)=>{
+    const requestRef =  firestore.doc(`classroom/${classroomID}/joinRequests/${studentID}`);
+
+    requestRef.get().then((joinReqDoc)=>{
         if(joinReqDoc.exists){
-            firestore
-            .collection('classroom')
-            .doc(classroomID).collection('joinRequests')
-            .doc(studentID).delete()
+            requestRef.delete()
             .then(()=>{
-                 firestore
-                .collection('enrolledStudents')
-                .doc(studentID)
-                .get()
+                const enrollRef = firestore.doc(`enrolledStudents/${studentID}`) ;
+                enrollRef.get()
                 .then((docRef)=>{
                     if(docRef.exists){
                         res.status(400).json({
@@ -41,9 +35,7 @@ function acceptJoinRequest(req,res){
                             message:"Student already enrolled in class"
                         })
                     }else{
-                        firestore
-                        .collection('enrolledStudents')
-                        .doc(studentID).set({
+                        enrollRef.set({
                             classroomID,
                             studentID
                         }).then(()=>{

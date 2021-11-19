@@ -3,11 +3,11 @@ const { firestore } = require("../../services/firebase-service");
 function createJoinRequest(req,res){
 
     const classroomID = req.body.classroomID;
+    const studentID = req.user.uid ;
 
-    firestore
-    .collection('classroom')
-    .doc(classroomID).collection('joinRequests')
-    .doc(req.user.uid).get()
+    const requestRef = firestore.doc(`classroom/${classroomID}/joinRequests/${studentID}`);
+    
+    requestRef.get()
     .then(doc=>{
         if(doc.exists){
             res.status(400).json({
@@ -16,10 +16,7 @@ function createJoinRequest(req,res){
             })
         }
         else{
-            firestore
-            .collection('classroom')
-            .doc(classroomID).collection('joinRequests')
-            .doc(req.user.uid).set({
+            requestRef.set({
                 createdAt : Date.now().toString()
             })
             .then(()=>{

@@ -1,4 +1,4 @@
-const isTeacher = (req, res, next) => {
+const checkIfUserIsTeacher = (req, res, next) => {
     if(req.user.isTeacher === true) {
         next();
     } else {
@@ -9,4 +9,4 @@ const isTeacher = (req, res, next) => {
     }
 };
 
-module.exports = isTeacher ;
+module.exports = checkIfUserIsTeacher ;

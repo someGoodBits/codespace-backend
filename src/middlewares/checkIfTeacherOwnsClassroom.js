@@ -1,6 +1,3 @@
-const {firestore } = require("../services/firebase-service");
-
-
 const checkIfTeacherOwnsClassroom = (req, res, next) => {
     if(req.classroom.owner === req.user.uid){
     	next();

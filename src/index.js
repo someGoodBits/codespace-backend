@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 3001 ;
 app.use(cors());
 
 // app routers
-const signupRouter = require("./routes/signup/signup-router");
-const classroomRouter = require("./routes/classroom/classroom-router.js");
+const signupRouter = require("./routes/signup/signupRouter");
+const classroomRouter = require("./routes/classroom/classroomRouter");
 
 app.use("/signup",signupRouter);
 app.use("/classroom",classroomRouter);
