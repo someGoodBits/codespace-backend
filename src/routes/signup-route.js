@@ -6,7 +6,8 @@ router.post("/",(req,res)=>{
 
     auth.createUser({
         email : req.body.email,
-        password : req.body.password
+        password : req.body.password,
+        displayName : req.body.displayName
     }).then((user)=>{
         if(req.body.role === "TEACHER") {
             auth.setCustomUserClaims(user.uid,{isTeacher : true})
