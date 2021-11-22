@@ -1,7 +1,7 @@
 const { firestore } = require("../../services/firebase-service");
 
 function createClassroom(req, res) {
-    if (!req.body.classroomName || typeof req.body.classroomDescription === "string") {
+    if (!req.body.classroomName) {
         res.status(400).json({
             status: "FAILURE",
             message: "Invalid entries",
@@ -14,7 +14,7 @@ function createClassroom(req, res) {
     data = {
         owner: req.user.uid,
         classroomName: req.body.classroomName,
-        classroomDescription: req.body.classroomDescription,
+        classroomDescription: req.body.classroomDescription || "",
         createdAt: time,
         updatedAt: time,
     };
@@ -25,7 +25,7 @@ function createClassroom(req, res) {
         .then((docRef) => {
             res.status(200).json({
                 status: "success",
-                message: docRef.data(),
+                message: data,
             });
         })
         .catch((error) => {

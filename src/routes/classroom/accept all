@@ -1,0 +1,29 @@
+accept all
+check all query
+-is teacher
+-classroom exist
+- owns classroom
+read all docs joinRequests, delete all(batch)
+all in student collection
+success
+
+
+
+remove student
+-isteacher
+-studentexists, if not send error, if yes, delete from enrolledStudents
+- inp ->{stID}
+
+delete classroom
+router.delete("/")
+inp-> {classroomID}
+isTeacher,owns, classroomexits
+delete from classroom
+delete students from enrolledStudents in the classroom
+
+
+
+
+
+
+

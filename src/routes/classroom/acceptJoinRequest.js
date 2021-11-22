@@ -1,6 +1,6 @@
 const { firestore } = require("../../services/firebase-service");
 
-function acceptJoinRequest(req,res){
+function acceptAllJoinRequest(req,res){
     const studentID = req.body.studentID
     const classroomID = req.body.classroomID
 
@@ -51,7 +51,7 @@ function acceptJoinRequest(req,res){
                 console.error(error);
                 res.status(500).json({
                     status :"failure",
-                    message : "Unable to accept join request" 
+                    message : error.message
                 })
             })
         } else {
@@ -63,4 +63,4 @@ function acceptJoinRequest(req,res){
     })
 }
 
-module.exports = acceptJoinRequest ;
+module.exports = acceptAllJoinRequest ;

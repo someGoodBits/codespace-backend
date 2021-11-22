@@ -35,7 +35,7 @@ function rejectJoinRequest(req,res){
         console.error(error);
         res.status(500).json({
             status :"failure",
-            message : "Unable to reject join request" 
+            message : error.message
         })
     })
 }

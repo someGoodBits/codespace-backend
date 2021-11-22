@@ -16,7 +16,7 @@ const checkIfClassroomExists = (req, res, next) => {
 	firestore.collection('classroom').doc(classroomID).get()
 	.then((docRef)=>{
 		if(docRef.exists){
-			req.classroom = docRef.data();
+			req.classroom = {...docRef.data(),classroomID:docRef.id};
 			next();
 		}
 		else{

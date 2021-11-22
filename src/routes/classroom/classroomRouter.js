@@ -16,6 +16,12 @@ const rejectJoinRequest = require("./rejectJoinRequest");
 const acceptJoinRequest = require("./acceptJoinRequest");
 const getClassroomByID = require("./getClassroomByID");
 const getAllClassrooms = require("./getClassrooms");
+const removeStudent = require("./removeStudent.js");
+const createPost = require("./createPost.js");
+const updatePostByID = require("./updatePostByID.js");
+const getAllPosts = require("./getAllPosts.js");
+const getPostByID = require("./getPostByID.js");
+const deletePostByID = require("./deletePostByID.js");
 
 
 // TODO validation using external LIB
@@ -64,6 +70,60 @@ router.post(
     checkIfTeacherOwnsClassroom, 
     acceptJoinRequest
 );
+
+// router.post(
+//     "/student/accept/all",
+//     checkIfUserIsTeacher,
+//     checkIfClassroomExists,
+//     checkIfTeacherOwnsClassroom,
+//     acceptAllJoinRequests
+//     )
+
+// router.post(
+//     "/student/remove",
+//     checkIfUserIsTeacher,
+//     checkIfClassroomExists,
+//     checkIfTeacherOwnsClassroom,
+//     removeStudent
+// );
+
+router.post(
+    "/post",
+    checkIfUserIsTeacher,
+    checkIfClassroomExists,
+    checkIfTeacherOwnsClassroom,
+    createPost
+);
+
+router.patch(
+    "/post",
+    checkIfUserIsTeacher,
+    checkIfClassroomExists,
+    checkIfTeacherOwnsClassroom,
+    updatePostByID
+);
+
+router.get(
+    "/post",
+    checkIfClassroomExists,
+    checkIfTeacherOwnsClassroom,
+    getAllPosts
+);
+
+router.get(
+    "/post/:postID",
+    checkIfClassroomExists,
+    checkIfTeacherOwnsClassroom,
+    getPostByID
+);
+
+router.delete(
+    "/post/:postID",
+    checkIfClassroomExists,
+    checkIfTeacherOwnsClassroom,
+    deletePostByID
+);
+
 
 // route to get a classrom details by classroom id
 router.get("/:id", getClassroomByID);
