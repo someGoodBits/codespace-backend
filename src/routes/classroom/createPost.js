@@ -4,7 +4,7 @@ const { firestore } = require("../../services/firebase-service");
 // send classroomID
 
 function createPost(req,res){
-	const classroomID = req.body.classroomID; //doubt
+	const classroomID = req.body.classroomID; 
 	var data = {};
     const time = Date.now();
     data = {

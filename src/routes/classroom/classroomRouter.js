@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const multer = require('multer')
+const uploadMiddleware = multer({storage: multer.memoryStorage()})
 
 // Middlewares
 const checkIfAuthenticated = require("../../middlewares/checkIfAuthenticated.js");
@@ -22,6 +24,7 @@ const updatePostByID = require("./updatePostByID.js");
 const getAllPosts = require("./getAllPosts.js");
 const getPostByID = require("./getPostByID.js");
 const deletePostByID = require("./deletePostByID.js");
+const uploadFile = require("./uploadFile.js");
 
 
 // TODO validation using external LIB
@@ -124,6 +127,13 @@ router.delete(
     deletePostByID
 );
 
+router.post(
+    "/upload",
+    uploadMiddleware.single("file"),
+    checkIfClassroomExists,
+    checkIfTeacherOwnsClassroom,
+    uploadFile
+);
 
 // route to get a classrom details by classroom id
 router.get("/:id", getClassroomByID);
