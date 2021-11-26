@@ -17,13 +17,13 @@ async function uploadFile(req,res){
     const fileName = `${postID}-${now}` + path.extname(req.file.originalname)
 
     try {
-        await storage.file(`${classroomID}/${fileName}`).createWriteStream().end(req.file.buffer)
+        await storage.file(`${classroomID}/${uploadLocation}/${fileName}`).createWriteStream().end(req.file.buffer)
 
         let data = {
             createdAt : now,
             updatedAt : now,
             fileName  : req.file.originalname,
-            filePath  : `${classroomID}/${fileName}`,
+            filePath  : `${classroomID}/${uploadLocation}/${fileName}`,
             owner     : req.user.uid,
         }
 

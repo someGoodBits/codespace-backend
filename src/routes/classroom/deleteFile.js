@@ -3,34 +3,52 @@ const { storage, firestore } = require("../../services/firebase-service");
 
 function deleteFile(req,res){
     // 
-	const filePath = req.body.filePath; 
+	const filePath = req.body.filePath;
+    const postID = req.body.postID; 
 	const uploadID = req.body.uploadID; 
+    const classroomID = req.body.classroomID;
+    let uploadLocation = 'uploads';
+
+    if(req.user.isStudent) {
+        uploadLocation = "submission"
+    }
     
     let fileRef =  firestore
     .collection("classroom")
     .doc(classroomID)
     .collection("posts")
     .doc(postID)
-    .collection("uploads")
+    .collection(`${uploadLocation}`)
     .doc(uploadID);
    
     fileRef.get().then((docRef)=>{
         if(docRef.exists){
-            if(req.user.uid === docRef.data().owner){
-                storage.file(filePath).exists().then(()=>{
-                    storage.file(filePath).delete().then(()=>{
+
+                fileRef.delete()
+                .then(()=>{
+                    console.log('Deleted!')
+                })
+            
+                storage.file(filePath)
+                .exists()
+                .then(()=>{
+                    storage
+                    .file(filePath)
+                    .delete()
+                    .then(()=>{
                         res.status(405).json({
-                            status: "FAILURE",
-                            message: "Access Denied",
+                            status: "success",
+                            message: "File deleted",
                         });
                     })
                 })
-            } else {
-                res.status(405).json({
-                    status: "FAILURE",
-                    message: "Access Denied",
-                });
-            }
+
+            // else {
+            //     res.status(405).json({
+            //         status: "FAILURE",
+            //         message: "Access Denied",
+            //     });
+            // }
         } else {
             res.status(405).json({
                 status: "FAILURE",

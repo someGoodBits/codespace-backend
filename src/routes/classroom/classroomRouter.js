@@ -25,6 +25,8 @@ const getAllPosts = require("./getAllPosts.js");
 const getPostByID = require("./getPostByID.js");
 const deletePostByID = require("./deletePostByID.js");
 const uploadFile = require("./uploadFile.js");
+const deleteFile = require("./deleteFile.js");
+const getSubmissions = require("./getSubmissions.js");
 
 
 // TODO validation using external LIB
@@ -131,8 +133,20 @@ router.post(
     "/upload",
     uploadMiddleware.single("file"),
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
     uploadFile
+);
+
+router.delete(
+    "/upload",
+    uploadMiddleware.single("file"),
+    checkIfClassroomExists,
+    deleteFile
+);
+
+router.get(
+    "/upload",
+    checkIfClassroomExists,
+    getSubmissions
 );
 
 // route to get a classrom details by classroom id

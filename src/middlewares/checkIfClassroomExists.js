@@ -4,13 +4,31 @@ const checkIfClassroomExists = (req, res, next) => {
 
 	const classroomID = req.body.classroomID;
 
-	if(!classroomID || typeof classroomID !== 'string'){
+	// if(!classroomID || typeof classroomID !== 'string'){
+	// 	res.status(400).json({
+	// 		status : "failure",
+	// 		message : "Invalid classroom ID"
+	// 	})
+	// 	return ;
+	// }
+
+	if(!classroomID){
 		res.status(400).json({
-			status : "failure",
+			status : "failure1",
 			message : "Invalid classroom ID"
 		})
 		return ;
 	}
+
+	if(typeof classroomID !== 'string'){
+		res.status(400).json({
+			status : "failure2",
+			message : "Invalid classroom ID"
+		})
+		return ;
+	}
+
+
 
 
 	firestore.collection('classroom').doc(classroomID).get()
