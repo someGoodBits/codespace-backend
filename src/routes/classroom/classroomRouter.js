@@ -29,7 +29,8 @@ const uploadFile = require("./uploadFile.js");
 const deleteFile = require("./deleteFile.js");
 const getSubmissions = require("./getSubmissions.js");
 const allotPoints = require("./allotPoints.js");
-
+const publishPoints = require("./publishPoints.js");
+const getPoints = require("./getPoints.js");
 
 
 
@@ -152,15 +153,30 @@ router.get(
     checkIfClassroomExists,
     getSubmissions
 );
+// todo test 3 API below
+router.post(
+    "/post/allotPoints",
+    checkIfUserIsTeacher,
+    checkIfClassroomExists,
+    checkIfTeacherOwnsClassroom,
+    allotPoints
+);
 
-// router.post(
-//     "/post/allotPoints",
-//     checkIfUserIsTeacher,
-//     checkIfClassroomExists,
-//     checkIfTeacherOwnsClassroom,
-//     checkIfClassroomExists,
-//     allotPoints
-// );
+router.patch(
+    "/post/publishPoints",
+    checkIfUserIsTeacher,
+    checkIfClassroomExists,
+    checkIfTeacherOwnsClassroom,
+    checkIfPostExists,
+    publishPoints
+);
+
+router.get(
+    "/post/getMarks",
+    checkIfClassroomExists,
+    checkIfPostExists,
+    getPoints
+);
 
 
 
