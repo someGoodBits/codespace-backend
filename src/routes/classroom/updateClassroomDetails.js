@@ -19,7 +19,7 @@ function updateClassroomDetails(req,res){
     .then((docRef)=>{
         res.status(200).json({
             status:"success",
-            message : docRef.data()
+            message : data
         })
     }).catch(error =>{
         console.error(error);

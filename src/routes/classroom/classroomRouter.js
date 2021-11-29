@@ -9,6 +9,7 @@ const checkIfClassroomExists = require("../../middlewares/checkIfClassroomExists
 const checkIfTeacherOwnsClassroom = require("../../middlewares/checkIfTeacherOwnsClassroom.js");
 const checkIfUserIsTeacher = require("../../middlewares/checkIfUserIsTeacher.js");
 const checkIfUserIsStudent = require("../../middlewares/checkIfUserIsStudent.js");
+const checkIfPostExists = require("../../middlewares/checkIfPostExists.js")
 
 // Handler Functions
 const createClassroom = require("./createClassroom");
@@ -27,6 +28,9 @@ const deletePostByID = require("./deletePostByID.js");
 const uploadFile = require("./uploadFile.js");
 const deleteFile = require("./deleteFile.js");
 const getSubmissions = require("./getSubmissions.js");
+const allotPoints = require("./allotPoints.js");
+
+
 
 
 // TODO validation using external LIB
@@ -148,6 +152,18 @@ router.get(
     checkIfClassroomExists,
     getSubmissions
 );
+
+// router.post(
+//     "/post/allotPoints",
+//     checkIfUserIsTeacher,
+//     checkIfClassroomExists,
+//     checkIfTeacherOwnsClassroom,
+//     checkIfClassroomExists,
+//     allotPoints
+// );
+
+
+
 
 // route to get a classrom details by classroom id
 router.get("/:id", getClassroomByID);
