@@ -12,7 +12,6 @@ function createPost(req,res){
         description: req.body.description,
         createdAt: time,
         updatedAt: time,
-        isPointsPublished : false
     };
 
     if(req.body.postType === 'ANNOUNCEMENT'){
@@ -40,7 +39,8 @@ function createPost(req,res){
     	data = {...data, 
     		maxPoints : req.body.maxPoints,
     		deadline : req.body.deadline,
-    		submissionOpen : req.body.submissionOpen
+    		submissionOpen : req.body.submissionOpen,
+			isPointsPublished : false
     	};
 
     	firestore

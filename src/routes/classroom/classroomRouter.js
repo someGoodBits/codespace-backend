@@ -116,7 +116,6 @@ router.patch(
 router.get(
     "/post",
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
     getAllPosts
 );
 
@@ -182,6 +181,6 @@ router.get(
 
 
 // route to get a classrom details by classroom id
-router.get("/:id", getClassroomByID);
+router.post("/byID",checkIfClassroomExists, getClassroomByID);
 
 module.exports = router;

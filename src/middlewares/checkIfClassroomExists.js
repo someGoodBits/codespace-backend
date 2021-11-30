@@ -2,7 +2,7 @@ const {firestore } = require("../services/firebase-service");
 
 const checkIfClassroomExists = (req, res, next) => {
 
-	const classroomID = req.body.classroomID;
+	const classroomID = req.body.classroomID || req.query.classroomID;
 
 	// if(!classroomID || typeof classroomID !== 'string'){
 	// 	res.status(400).json({
@@ -14,7 +14,7 @@ const checkIfClassroomExists = (req, res, next) => {
 
 	if(!classroomID){
 		res.status(400).json({
-			status : "failure1",
+			status : "failure",
 			message : "Invalid classroom ID"
 		})
 		return ;
@@ -22,7 +22,7 @@ const checkIfClassroomExists = (req, res, next) => {
 
 	if(typeof classroomID !== 'string'){
 		res.status(400).json({
-			status : "failure2",
+			status : "failure",
 			message : "Invalid classroom ID"
 		})
 		return ;

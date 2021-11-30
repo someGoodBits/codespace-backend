@@ -12,7 +12,8 @@ router.post("/",express.urlencoded({ extended: true }),(req,res)=>{
             auth.setCustomUserClaims(user.uid,{isTeacher : true})
 
             firestore.doc(`users/${user.uid}`).set({
-                role : req.body.role
+                role : req.body.role,
+                displayName : req.body.displayName
             }).then(()=>{
                 res.json({
                     status : "success",
@@ -37,7 +38,8 @@ router.post("/",express.urlencoded({ extended: true }),(req,res)=>{
             let enrollmentNumber = req.body.enrollmentNumber || "" ;
             firestore.doc(`users/${user.uid}`).set({
                 enrollmentNumber,
-                role : req.body.role
+                role : req.body.role,
+                displayName : req.body.displayName
             }).then(()=>{
                 res.json({
                     status : "success",
