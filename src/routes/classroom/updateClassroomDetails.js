@@ -1,7 +1,7 @@
 const { firestore } = require("../../services/firebase-service");
 
 function updateClassroomDetails(req,res){
-    if(!req.body.classroomName || typeof req.body.classroomDescription === "string"){
+    if(!req.body.classroomName || typeof req.body.classroomDescription !== "string"){
         res.status(400).json({
             status:"failure",
             message : "Invalid entries"

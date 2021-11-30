@@ -1,6 +1,6 @@
 const { firestore } = require("../../services/firebase-service");
 
-function acceptAllJoinRequest(req,res){
+async function acceptAllJoinRequest(req,res){
     const studentID = req.body.studentID
     const classroomID = req.body.classroomID
 
@@ -21,6 +21,25 @@ function acceptAllJoinRequest(req,res){
     }
 
     const requestRef =  firestore.doc(`classroom/${classroomID}/joinRequests/${studentID}`);
+    const studentRef =  firestore.doc(`users/${studentID}`) ;
+    const classroomRef =  firestore.doc(`classroom/${classroomID}`) ;
+
+    let studentData   ;
+    let classroomData  ;
+
+    try {
+        let studentDocRef  = await studentRef.get() ;
+        let classroomDocRef = await classroomRef.get();
+        studentData = studentDocRef.data();
+        classroomData = classroomDocRef.data();
+    } catch(error){
+        res.status(400).json({
+            status:"failure",
+            message:error
+        })
+        return ;
+    }
+    
 
     requestRef.get().then((joinReqDoc)=>{
         if(joinReqDoc.exists){
@@ -32,12 +51,16 @@ function acceptAllJoinRequest(req,res){
                     if(docRef.exists){
                         res.status(400).json({
                             status:"failure",
-                            message:"Student already enrolled in class"
+                            message:"Student already enrolled in class",
                         })
                     }else{
                         enrollRef.set({
                             classroomID,
-                            studentID
+                            studentID,
+                            studentName : studentData.displayName,
+                            enrollmentNumber : studentData.enrollmentNumber ,
+                            classroomName : classroomData.classroomName,
+                            classroomDescription : classroomData.classroomDescription
                         }).then(()=>{
                             res.status(200).json({
                                 status : "success",

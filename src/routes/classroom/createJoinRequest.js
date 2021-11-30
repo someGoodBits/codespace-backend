@@ -30,7 +30,7 @@ function createJoinRequest(req,res){
                     enrollmentNumber
                 })
                 .then(()=>{
-                    res.status(400).json({
+                    res.json({
                         status : "success",
                         message : "Join request sent"
                     })

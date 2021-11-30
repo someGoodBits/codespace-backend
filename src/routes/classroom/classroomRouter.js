@@ -31,7 +31,8 @@ const getSubmissions = require("./getSubmissions.js");
 const allotPoints = require("./allotPoints.js");
 const publishPoints = require("./publishPoints.js");
 const getPoints = require("./getPoints.js");
-const getJoinRequests = require("./getJoinRequests.js")
+const getJoinRequests = require("./getJoinRequests.js");
+const getStudents = require("./getStudents.js");
 
 
 
@@ -66,13 +67,20 @@ router.post(
 
 // route to get all join requests
 router.get(
-    "/join", 
-    checkIfUserTeacher, 
+    "/requests", 
+    checkIfUserIsTeacher, 
     checkIfClassroomExists, 
     checkIfTeacherOwnsClassroom,
     getJoinRequests
 );
 
+router.get(
+    "/students", 
+    checkIfUserIsTeacher, 
+    checkIfClassroomExists, 
+    checkIfTeacherOwnsClassroom, 
+    getStudents
+);
 
 // route to reject join request
 router.post(
@@ -82,6 +90,7 @@ router.post(
     checkIfTeacherOwnsClassroom, 
     rejectJoinRequest
 );
+
 
 // route to accept join request
 router.post(
@@ -100,15 +109,15 @@ router.post(
 //     acceptAllJoinRequests
 //     )
 
-// router.post(
-//     "/student/remove",
-//     checkIfUserIsTeacher,
-//     checkIfClassroomExists,
-//     checkIfTeacherOwnsClassroom,
-//     removeStudent
-// );
+router.delete(
+    "/student/remove",
+    checkIfUserIsTeacher,
+    checkIfClassroomExists,
+    checkIfTeacherOwnsClassroom,
+    removeStudent
+);
 
-router.get(
+router.post(
     "/post",
     checkIfUserIsTeacher,
     checkIfClassroomExists,

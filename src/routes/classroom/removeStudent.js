@@ -25,16 +25,20 @@ function removeStudent(req,res){
     .where('classroomID','==',classroomID)
     .get()
     .then((snapshot)=>{
-    	if(snapshot.exists){
-    		firestore.collection('enrolledStudents')
-    		.doc(snapshot.doc.ref).delete()
+    	if(snapshot.docs.length > 0){
+    		snapshot.docs[0].ref.delete()
     		.then(()=>{
     			res.status(200).json({
 		            status : "success",
 		            message : "Student deleted from classroom"
        			})
     		})
-    	}
+    	} else {
+            res.status(400).json({
+                status :"failure",
+                message : "Enrollement Info Do not Exists" 
+            })
+        }
     })
     .catch((error)=>{
     	console.error(error);
