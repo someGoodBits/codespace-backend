@@ -16,14 +16,26 @@ function createJoinRequest(req,res){
             })
         }
         else{
-            requestRef.set({
-                createdAt : Date.now().toString()
-            })
-            .then(()=>{
-                res.status(400).json({
-                    status : "success",
-                    message : "Join request sent"
+
+            firestore
+            .collection('users')
+            .doc(studentID)
+            .get()
+            .then((docRef)=>{
+                const studentName = docRef.data().displayName;
+                const enrollmentNumber = docRef.data().enrollmentNumber;
+                requestRef.set({
+                    createdAt : Date.now().toString(),
+                    studentName,
+                    enrollmentNumber
                 })
+                .then(()=>{
+                    res.status(400).json({
+                        status : "success",
+                        message : "Join request sent"
+                    })
+                })
+
             })
             .catch((error)=>{
                 console.error(error);

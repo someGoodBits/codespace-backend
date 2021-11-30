@@ -15,7 +15,7 @@ function updateClassroomDetails(req,res){
         updatedAt: Date.now()
     }
 
-    firestore.collection('classroom').doc(req.body.classroomID).update(data)
+    firestore.collection('classroom').doc(req.classroom.classroomID).update(data)
     .then((docRef)=>{
         res.status(200).json({
             status:"success",
