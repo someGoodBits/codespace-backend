@@ -3,7 +3,7 @@ const { firestore } = require("../../services/firebase-service");
 function createClassroom(req, res) {
     if (!req.body.classroomName) {
         res.status(400).json({
-            status: "FAILURE",
+            status: "failure",
             message: "Invalid entries",
         });
         return;
@@ -31,7 +31,7 @@ function createClassroom(req, res) {
         .catch((error) => {
             console.error(error);
             res.status(400).json({
-                status: "FAILURE",
+                status: "failure",
                 message: error.message,
             });
         });

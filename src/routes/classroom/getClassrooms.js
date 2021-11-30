@@ -11,7 +11,7 @@ function getAllClassrooms(req,res){
     }).catch(error =>{
         console.error(error);
         res.status(400).json({
-            status:"FAILURE",
+            status:"failure",
             message : error.message
         })
     })

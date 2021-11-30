@@ -45,13 +45,13 @@ function deleteFile(req,res){
 
             // else {
             //     res.status(405).json({
-            //         status: "FAILURE",
+            //         status: "failure",
             //         message: "Access Denied",
             //     });
             // }
         } else {
             res.status(405).json({
-                status: "FAILURE",
+                status: "failure",
                 message: "File Do Not Exist",
             });
         }
@@ -59,7 +59,7 @@ function deleteFile(req,res){
     .catch((error)=>{
         console.error(error.message);
         res.status(400).json({
-            status: "FAILURE",
+            status: "failure",
             message: error.message,
         });
     }) 

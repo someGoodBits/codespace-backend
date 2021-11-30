@@ -51,7 +51,7 @@ async function uploadFile(req,res){
         .catch((error)=>{
             console.error(error.message);
             res.status(400).json({
-                status: "FAILURE",
+                status: "failure",
                 message: error.message,
             });
         })
@@ -59,7 +59,7 @@ async function uploadFile(req,res){
     } catch(error){
         console.error(error.message);
         res.status(400).json({
-            status: "FAILURE",
+            status: "failure",
             message: error.message,
         });
     }

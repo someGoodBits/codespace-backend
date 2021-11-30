@@ -14,7 +14,7 @@ function getClassroomByID(req, res){
         })
         .catch((error) => {
             res.status(400).json({
-                status: "FAILURE",
+                status: "failure",
                 message: error.message,
             });
         });
