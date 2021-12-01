@@ -16,11 +16,18 @@ function deleteClassroom(req,res){
     .doc(classroomID)
     .delete()
     .then(()=>{
-        firestore.collection('enrolledStudents')
-        .where('classroomID','==',classroomID)
-        .get()
-        .then((snapshot)=>{
-            // batched 
+
+        // update below code after learning batched writes
+        // firestore.collection('enrolledStudents')
+        // .where('classroomID','==',classroomID)
+        // .get()
+        // .then((snapshot)=>{
+        //     // batched 
+        // })
+        
+        res.status(500).json({
+            status :"failure",
+            message : "Unable to delete classroom" 
         })
     })
     .catch(error=>{

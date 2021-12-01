@@ -14,6 +14,7 @@ const checkIfPostExists = require("../../middlewares/checkIfPostExists.js")
 // Handler Functions
 const createClassroom = require("./createClassroom");
 const updateClassroomDetails = require("./updateClassroomDetails");
+const deleteClassroom = require("./deleteClassroom.js");
 const createJoinRequest = require("./createJoinRequest");
 const rejectJoinRequest = require("./rejectJoinRequest");
 const acceptJoinRequest = require("./acceptJoinRequest");
@@ -57,6 +58,15 @@ router.patch(
     updateClassroomDetails
 );
 
+// router to delete classroom
+router.delete(
+    "/", 
+    checkIfUserIsTeacher,
+    checkIfClassroomExists, 
+    checkIfTeacherOwnsClassroom, 
+    deleteClassroom
+);
+
 // route to create join requests
 router.post(
     "/join", 
@@ -74,6 +84,7 @@ router.get(
     getJoinRequests
 );
 
+// route to get all students in a classroom
 router.get(
     "/students", 
     checkIfUserIsTeacher, 
@@ -109,6 +120,7 @@ router.post(
 //     acceptAllJoinRequests
 //     )
 
+// Route to remove student from class
 router.delete(
     "/student/remove",
     checkIfUserIsTeacher,
@@ -117,6 +129,7 @@ router.delete(
     removeStudent
 );
 
+// Route to create post
 router.post(
     "/post",
     checkIfUserIsTeacher,
@@ -125,6 +138,7 @@ router.post(
     createPost
 );
 
+// Route to update individual post
 router.patch(
     "/post",
     checkIfUserIsTeacher,
@@ -133,12 +147,14 @@ router.patch(
     updatePostByID
 );
 
+// route to get all posts of a classroom
 router.get(
     "/post",
     checkIfClassroomExists,
     getAllPosts
 );
 
+// route to get individual post of classroom
 router.get(
     "/post/:postID",
     checkIfClassroomExists,
@@ -146,6 +162,7 @@ router.get(
     getPostByID
 );
 
+// route to delete individual post
 router.delete(
     "/post/:postID",
     checkIfClassroomExists,
@@ -153,6 +170,7 @@ router.delete(
     deletePostByID
 );
 
+// route to upload file
 router.post(
     "/upload",
     uploadMiddleware.single("file"),
@@ -160,6 +178,7 @@ router.post(
     uploadFile
 );
 
+// route to delete file
 router.delete(
     "/upload",
     uploadMiddleware.single("file"),
@@ -167,12 +186,17 @@ router.delete(
     deleteFile
 );
 
+// route to get submission. If teacher, get all submission on the post.
+// if student, get only submission of student
 router.get(
     "/upload",
     checkIfClassroomExists,
     getSubmissions
 );
+
 // todo test 3 API below
+
+// route to allot points to specific student in specific post
 router.post(
     "/post/allotPoints",
     checkIfUserIsTeacher,
@@ -181,6 +205,7 @@ router.post(
     allotPoints
 );
 
+// route to set publishPoints as true
 router.patch(
     "/post/publishPoints",
     checkIfUserIsTeacher,
@@ -190,6 +215,7 @@ router.patch(
     publishPoints
 );
 
+// route to get points of individual student on a specific post
 router.get(
     "/post/getMarks",
     checkIfClassroomExists,
@@ -197,6 +223,7 @@ router.get(
     getPoints
 );
 
+// route to get all join requests
 router.get(
     "/join",
     checkIfUserIsTeacher,
