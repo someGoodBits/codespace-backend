@@ -5,14 +5,11 @@ const uploadMiddleware = multer({storage: multer.memoryStorage()})
 
 // Middlewares
 const checkIfAuthenticated = require("../../middlewares/checkIfAuthenticated.js");
-const checkIfClassroomExists = require("../../middlewares/checkIfClassroomExists.js");
-const checkIfTeacherOwnsClassroom = require("../../middlewares/checkIfTeacherOwnsClassroom.js");
-const checkIfUserIsTeacher = require("../../middlewares/checkIfUserIsTeacher.js");
-const checkIfUserIsStudent = require("../../middlewares/checkIfUserIsStudent.js");
-const checkIfPostExists = require("../../middlewares/checkIfPostExists.js")
+const checkIfUserOwnsCode = require("../../middlewares/checkIfUserOwnsCode.js");
+const checkIfPostExists = require("../../middlewares/checkIfCodeExists.js");
 
 // Handler Functions
-const createClassroom = require("./createClassroom");
+const createCm = require("./createClassroom");
 const updateClassroomDetails = require("./updateClassroomDetails");
 const deleteClassroom = require("./deleteClassroom.js");
 const createJoinRequest = require("./createJoinRequest");
@@ -54,7 +51,7 @@ router.patch(
     "/", 
     checkIfUserIsTeacher,
     checkIfClassroomExists, 
-    checkIfTeacherOwnsClassroom, 
+    checkIfUserOwnsCode, 
     updateClassroomDetails
 );
 
@@ -63,7 +60,7 @@ router.delete(
     "/", 
     checkIfUserIsTeacher,
     checkIfClassroomExists, 
-    checkIfTeacherOwnsClassroom, 
+    checkIfUserOwnsCode, 
     deleteClassroom
 );
 
@@ -80,7 +77,7 @@ router.get(
     "/requests", 
     checkIfUserIsTeacher, 
     checkIfClassroomExists, 
-    checkIfTeacherOwnsClassroom,
+    checkIfUserOwnsCode,
     getJoinRequests
 );
 
@@ -89,7 +86,7 @@ router.get(
     "/students", 
     checkIfUserIsTeacher, 
     checkIfClassroomExists, 
-    checkIfTeacherOwnsClassroom, 
+    checkIfUserOwnsCode, 
     getStudents
 );
 
@@ -98,7 +95,7 @@ router.post(
     "/student/reject", 
     checkIfUserIsTeacher, 
     checkIfClassroomExists, 
-    checkIfTeacherOwnsClassroom, 
+    checkIfUserOwnsCode, 
     rejectJoinRequest
 );
 
@@ -108,7 +105,7 @@ router.post(
     "/student/accept", 
     checkIfUserIsTeacher, 
     checkIfClassroomExists, 
-    checkIfTeacherOwnsClassroom, 
+    checkIfUserOwnsCode, 
     acceptJoinRequest
 );
 
@@ -125,7 +122,7 @@ router.delete(
     "/student/remove",
     checkIfUserIsTeacher,
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
+    checkIfUserOwnsCode,
     removeStudent
 );
 
@@ -134,7 +131,7 @@ router.post(
     "/post",
     checkIfUserIsTeacher,
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
+    checkIfUserOwnsCode,
     createPost
 );
 
@@ -143,7 +140,7 @@ router.patch(
     "/post",
     checkIfUserIsTeacher,
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
+    checkIfUserOwnsCode,
     updatePostByID
 );
 
@@ -158,7 +155,7 @@ router.get(
 router.get(
     "/post/:postID",
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
+    checkIfUserOwnsCode,
     getPostByID
 );
 
@@ -166,7 +163,7 @@ router.get(
 router.delete(
     "/post/:postID",
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
+    checkIfUserOwnsCode,
     deletePostByID
 );
 
@@ -201,7 +198,7 @@ router.post(
     "/post/allotPoints",
     checkIfUserIsTeacher,
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
+    checkIfUserOwnsCode,
     allotPoints
 );
 
@@ -210,7 +207,7 @@ router.patch(
     "/post/publishPoints",
     checkIfUserIsTeacher,
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
+    checkIfUserOwnsCode,
     checkIfPostExists,
     publishPoints
 );
@@ -228,7 +225,7 @@ router.get(
     "/join",
     checkIfUserIsTeacher,
     checkIfClassroomExists,
-    checkIfTeacherOwnsClassroom,
+    checkIfUserOwnsCode,
     getJoinRequests
 );
 

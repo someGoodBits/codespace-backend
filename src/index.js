@@ -10,11 +10,11 @@ app.use(cors());
 
 // app routers
 const signupRouter = require("./routes/signup/signupRouter");
-const classroomRouter = require("./routes/classroom/classroomRouter");
+const codePlaygroundRouter = require("./routes/codePlayground/codePlayground");
 const userRouter = require("./routes/user/userRouter.js");
 
 app.use("/signup",signupRouter);
-app.use("/classroom",classroomRouter);
+app.use("/classroom",codePlaygroundRouter);
 app.use("/user",userRouter)
 
 // Start Server
