@@ -1,8 +1,6 @@
 const { firestore } = require("../../services/firebase-service");
 
-
-
-function getPostBtID(req,res){
+function getCodeByID(req,res){
 
     const postID = req.params.postID;
 
@@ -34,4 +32,4 @@ function getPostBtID(req,res){
     })
 }
 
-module.exports = getPostBtID ;
+module.exports = getCodeByID ;

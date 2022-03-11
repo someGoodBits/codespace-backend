@@ -1,7 +1,7 @@
 const { firestore } = require("../../services/firebase-service");
 
 
-function deletePostByID(req,res){
+function deleteCodeByID(req,res){
 
 	const postID = req.params.postID;
 	const classroomID = req.classroom.classroomID;
@@ -28,4 +28,4 @@ function deletePostByID(req,res){
 
 }
 
-module.exports = deletePostByID ;
+module.exports = deleteCodeByID ;

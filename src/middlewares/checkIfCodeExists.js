@@ -1,43 +1,38 @@
-const {firestore } = require("../services/firebase-service");
-
+const { firestore } = require("../services/firebase-service");
 
 const checkIfCodeExists = (req, res, next) => {
+    const codeID = req.body.codeID;
 
-	const codeID = req.body.codeID;
-	// const classroomID = req.body.classroomID;
+    if (!codeID || typeof codeID !== "string") {
+        res.status(400).json({
+            status: "failure",
+            message: "Invalid Code ID",
+        });
+        return;
+    }
 
-	if(!codeID || typeof codeID !== 'string'){
-		res.status(400).json({
-			status : "failure",
-			message : "Invalid post ID"
-		})
-		return ;
-	}
-
-	firestore
-	.collection('codes')
-	.doc(codeID)
-	.get()
-	.then((docRef)=>{
-		if(docRef.exists){
-			req.codeDoc= {...docRef.data(),codeID:docRef.id};
-			next();
-		}
-		else{
-			res.status(400).json({
-				status : "failure",
-				message : "Code does not exists"
-			})
-		}
-	}).catch(error=>{
-		console.error(error);
-		res.status(500).json({
-			status : "failure",
-			message : "Unable to fetch code"
-		})
-	});
-
-
+    firestore
+        .collection("codes")
+        .doc(codeID)
+        .get()
+        .then((docRef) => {
+            if (docRef.exists) {
+                req.codeDoc = { ...docRef.data(), codeID: docRef.id };
+                next();
+            } else {
+                res.status(400).json({
+                    status: "failure",
+                    message: "Code does not exists",
+                });
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).json({
+                status: "failure",
+                message: "Unable to fetch code",
+            });
+        });
 };
 
-module.exports = checkIfCodeExists ;
+module.exports = checkIfCodeExists;

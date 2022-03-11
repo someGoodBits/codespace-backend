@@ -1,20 +1,21 @@
 const { firestore } = require("../../services/firebase-service");
 
+// todo check only teachers and enrolled students can access
 
-function getJoinRequests(req,res){
 
-	const classroomID = req.query.classroomID;
+
+function getAllCodes(req,res){
 
     firestore
     .collection('classroom')
-    .doc(classroomID)
-    .collection('joinRequests')
+    .doc(req.classroom.classroomID)
+    .collection('posts')
     .get()
     .then((snapshot)=>{
 
         res.status(200).json({
             status:"success",
-            message : snapshot.docs.map(doc => ({...doc.data(),id:doc.id}))
+            message : snapshot.docs.map(doc => ({...doc.data(),postID:doc.id}))
         })
     }).catch(error =>{
         console.error(error);
@@ -25,4 +26,4 @@ function getJoinRequests(req,res){
     })
 }
 
-module.exports = getJoinRequests ;
+module.exports = getAllCodes ;

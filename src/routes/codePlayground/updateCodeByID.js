@@ -3,7 +3,7 @@ const { firestore } = require("../../services/firebase-service");
 // todo add attachments
 // send classroomID
 
-function updatePostByID(req,res){
+function updateCodeByID(req,res){
     const classroomID = req.body.classroomID; 
 	const postID = req.body.postID; 
 	var data = {};
@@ -71,4 +71,4 @@ function updatePostByID(req,res){
     }	
 }
 
-module.exports = updatePostByID ;
+module.exports = updateCodeByID ;

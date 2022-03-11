@@ -3,7 +3,7 @@ const { firestore } = require("../../services/firebase-service");
 // todo add attachments
 // send classroomID
 
-function createPost(req,res){
+function createCode(req,res){
 	const classroomID = req.body.classroomID; 
 	var data = {};
     const time = Date.now();
@@ -71,4 +71,4 @@ function createPost(req,res){
     }	
 }
 
-module.exports = createPost ;
+module.exports = createCode ;
